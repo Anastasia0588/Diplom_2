@@ -1,7 +1,6 @@
 import pytest
 import requests
 import allure
-
 import urls
 from helper import generate_user_creds, register_user, delete_user
 
@@ -23,9 +22,8 @@ class TestCreateUser:
         access_token = response.json()['accessToken']
         delete_user(access_token)
 
-
     @allure.title('Создание пользователя, который уже зарегистрирован')
-    def test_create_existed_user(self, user):
+    def test_create_existed_user_fail(self, user):
         response = requests.post(urls.register_url, data=user[0])
 
         assert response.status_code == 403
@@ -35,7 +33,7 @@ class TestCreateUser:
 
     @allure.title('Создание пользователя с незаполненным обязательным полем')
     @pytest.mark.parametrize('wrong_field', ['email', 'name', 'password'])
-    def test_create_user_with_missed_field(self, missed_field):
+    def test_create_user_with_missed_field_fail(self, missed_field):
         creds = generate_user_creds()
         del creds[missed_field]
         response = register_user(creds)
@@ -44,18 +42,3 @@ class TestCreateUser:
         assert response.reason == 'Forbidden'
         assert response.json()["success"] is False
         assert response.json()["message"] == "Email, password and name are required fields"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

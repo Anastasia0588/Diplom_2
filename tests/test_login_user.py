@@ -19,7 +19,7 @@ class TestLoginUser:
 
     @allure.title('Авторизация пользователя с неверными логином и паролем')
     @pytest.mark.parametrize('wrong_field', ['email', 'password'])
-    def test_login_user_failed(self, user, wrong_field):
+    def test_login_user_fail(self, user, wrong_field):
         user[0][wrong_field] += user[0][wrong_field]
         response = requests.post(urls.login_url, data=user[0])
 

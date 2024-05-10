@@ -1,6 +1,5 @@
 import pytest
-
-from helper import register_user, delete_user, generate_user_creds, ingredient_list, create_order
+from helper import register_user, delete_user, generate_user_creds, create_order
 
 
 @pytest.fixture(scope='function')

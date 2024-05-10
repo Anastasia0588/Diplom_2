@@ -20,8 +20,6 @@ class TestChangeUserData:
         assert 'email' in response.json()['user']
         assert 'name' in response.json()['user']
 
-
-
     @allure.title('Изменение данных пользователя без авторизации')
     @pytest.mark.parametrize('edited_field', ['email', 'name', 'password'])
     def test_edit_user_data_failed(self, user, edited_field):
@@ -33,4 +31,3 @@ class TestChangeUserData:
         assert response.status_code == 401
         assert response.json()['success'] is False
         assert response.json()["message"] == "You should be authorised"
-

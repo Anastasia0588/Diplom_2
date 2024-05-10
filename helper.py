@@ -3,7 +3,6 @@ import string
 
 import allure
 import requests
-
 import urls
 
 
@@ -11,6 +10,7 @@ def generate_random_string(length):
     letters = string.ascii_lowercase + string.digits
     random_string = ''.join(random.choice(letters) for _ in range(length))
     return random_string
+
 
 def generate_user_creds(exclude_email=False, exclude_password=False, exclude_name=False):
     credentials = {}
@@ -26,10 +26,12 @@ def generate_user_creds(exclude_email=False, exclude_password=False, exclude_nam
 
     return credentials
 
+
 @allure.step('Регистрация пользователя')
 def register_user(payload):
     response = requests.post(urls.register_url, data=payload)
     return response
+
 
 @allure.step('Удаление пользователя')
 def delete_user(access_token):

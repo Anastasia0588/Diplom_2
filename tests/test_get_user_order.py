@@ -22,6 +22,3 @@ class TestGetUserOrder:
         assert response.reason == 'Unauthorized'
         assert response.json()["success"] is False
         assert response.json()["message"] == "You should be authorised"
-
-
-
