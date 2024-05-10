@@ -43,3 +43,11 @@ def ingredient_list():
     ingredient_list.append(response.json()['data'][0]['_id'])
     ingredient_list.append(response.json()['data'][1]['_id'])
     return ingredient_list
+
+
+@allure.step('Создание заказа авторизованным пользователем')
+def create_order(access_token):
+    order = {}
+    order['ingredients'] = ingredient_list()
+    response = requests.post(urls.orders_url, headers={"Authorization": access_token}, data=order)
+    return response
