@@ -26,7 +26,7 @@ class TestCreateUser:
 
     @allure.title('Создание пользователя, который уже зарегистрирован')
     def test_create_existed_user(self, user):
-        response = requests.post(urls.register_url, data=user)
+        response = requests.post(urls.register_url, data=user[0])
 
         assert response.status_code == 403
         assert response.reason == 'Forbidden'
@@ -34,7 +34,7 @@ class TestCreateUser:
         assert response.json()["message"] == "User already exists"
 
     @allure.title('Создание пользователя с незаполненным обязательным полем')
-    @pytest.mark.parametrize('missed_field', ['email', 'name', 'password'])
+    @pytest.mark.parametrize('wrong_field', ['email', 'name', 'password'])
     def test_create_user_with_missed_field(self, missed_field):
         creds = generate_user_creds()
         del creds[missed_field]
