@@ -10,10 +10,10 @@ class TestChangeUserData:
     @allure.title('Изменение данных пользователя с авторизацией')
     @pytest.mark.parametrize('edited_field', ['email', 'name', 'password'])
     def test_edit_user_data_success(self, user, edited_field):
-        payload, access_token = user
+        user_data, access_token = user
         new_creds = generate_user_creds()
-        payload[edited_field] = new_creds[edited_field]
-        response = requests.patch(urls.user_url, headers={"Authorization": access_token}, data=payload)
+        user_data[edited_field] = new_creds[edited_field]
+        response = requests.patch(urls.user_url, headers={"Authorization": access_token}, data=user_data)
 
         assert response.status_code == 200
         assert response.json()['success'] is True
@@ -25,10 +25,10 @@ class TestChangeUserData:
     @allure.title('Изменение данных пользователя без авторизации')
     @pytest.mark.parametrize('edited_field', ['email', 'name', 'password'])
     def test_edit_user_data_failed(self, user, edited_field):
-        payload, access_token = user
+        user_data, access_token = user
         new_creds = generate_user_creds()
-        payload[edited_field] = new_creds[edited_field]
-        response = requests.patch(urls.user_url, data=payload)
+        user_data[edited_field] = new_creds[edited_field]
+        response = requests.patch(urls.user_url, data=user_data)
 
         assert response.status_code == 401
         assert response.json()['success'] is False
