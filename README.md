@@ -8,7 +8,7 @@
 test_create_user.py - тесты создания пользователя  
 test_login_user.py - тесты авторизации пользователя  
 test_edit_user_data.py - тесты на создание заказа  
-test_create_order.py - тесты на создание заказа
+test_create_order.py - тесты на создание заказа  
 test_get_user_order.py - тесты получения заказов пользователя  
 
 
