@@ -15,7 +15,7 @@ class TestGetUserOrder:
         assert len(response.json()["orders"]) == 1
 
     @allure.title('Получение заказа без авторизации')
-    def test_get_user_order_without_auth_fail(self, user, order):
+    def test_get_user_order_without_auth_fail(self, order):
         response = requests.get(urls.orders_url)
 
         assert response.status_code == 401
