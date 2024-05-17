@@ -1,15 +1,19 @@
 import pytest
-from helper import register_user, delete_user, generate_user_creds, create_order
+from helper import register, delete_user, generate_user_creds, create_order
 
 
 @pytest.fixture(scope='function')
-def user():
-    user_data = generate_user_creds()
-    response = register_user(user_data)
+def generate_user():
+    creds = generate_user_creds()
+    return creds
+
+
+@pytest.fixture(scope='function')
+def user(generate_user):
+    response = register(generate_user)
     access_token = response.json()['accessToken']
-    yield user_data, access_token
-    if response.status_code == 200:
-        delete_user(access_token)
+    yield generate_user, access_token
+    delete_user(access_token)
 
 
 @pytest.fixture(scope='function')
