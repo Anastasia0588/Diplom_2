@@ -1,5 +1,5 @@
 import pytest
-from helper import register, delete_user, generate_user_creds, create_order
+from helper import register_user, delete_user, generate_user_creds, create_order
 
 
 @pytest.fixture(scope='function')
@@ -10,7 +10,7 @@ def generate_user():
 
 @pytest.fixture(scope='function')
 def user(generate_user):
-    response = register(generate_user)
+    response = register_user(generate_user)
     access_token = response.json()['accessToken']
     yield generate_user, access_token
     delete_user(access_token)
